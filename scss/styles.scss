@@ -1,0 +1,261 @@
+// out: ../css/styles.min.css
+
+
+//  R E S E T T E R
+
+        * { margin: 0; padding: 0; box-sizing: border-box; vertical-align: top; }
+
+
+//  R E S P O N S I V E   L A Y O U T
+
+        @mixin breakpoint($point) {
+                @if $point == norml {
+                        @media (min-width: 70.1em) { @content ; }
+                }
+                @else if $point == narrow {
+                        @media (max-width: 70em) { @content ; }
+                }
+                @else if $point == compact {
+                        @media (max-width: 50em)  { @content ; }
+                }
+        }
+
+
+//  C O L O R S
+
+        $main1:         #5361A2;
+        $main2:         #D35038;
+        $main3:         #f59a30;
+        $main4:         #85b03f;
+        $grey1:          #444;
+        $lightest:       #fff;
+
+
+//  F O N T S
+
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,400italic,700&subset=latin,cyrillic);
+        @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300&subset=latin,cyrillic);
+
+        @font-face {
+                font-family: "landing-page-cv";
+                src:url("../fonts/landing-page-cv.eot");
+                src:url("../fonts/landing-page-cv.eot?#iefix") format("embedded-opentype"),
+                        url("../fonts/landing-page-cv.woff") format("woff"),
+                        url("../fonts/landing-page-cv.ttf") format("truetype"),
+                        url("../fonts/landing-page-cv.svg#landing-page-cv") format("svg");
+                font-weight: normal;
+                font-style: normal;
+        }
+
+        $normal:                'Roboto', 'Droid Sans', Arial, sans-serif;
+        $condensed:             'Roboto Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        $icons:                 'landing-page-cv';
+
+        html, body { width: 100%; max-width: 100%; }
+        body { font-family: $normal; font-weight: 300; font-size: 120%; color: $grey1; }
+
+        h1, h2, h3, h4 { font-family: $condensed; margin: .7em 0 .3em 0; font-weight: 300;  }
+        h1 { font-size: 900%; font-weight: 400; color: lighten($main1,45%); margin: .1em 0 .3em; line-height: .8em; }
+        h2 { font-size: 300%; color: lighten($main1,10%); margin: .3em 0 .5em; line-height: .9em; }
+        h3 { font-size: 150%; color: lighten($grey1,40%); line-height: 1.2em; }
+        h4 { font-size: 100%; font-weight: 400; }
+
+
+//  E L E M E N T S
+
+        // Blocks
+        .center { margin: 0 auto; text-align: center; }
+        .left, .right { display: inline-block; }
+        .right { margin-left: 1.5em; margin-top: 1.5em; }
+        .grid {
+                & > div { display: inline-block; width: 49%; margin: 0 0 1em 0; padding-right: 1em; }
+        }
+
+        // Text
+        .small { font-size: 80%; color: lighten($grey1,40%); }
+
+        // Links
+        a { text-decoration: none; transition: all .2s ease-out; }
+
+        // Lists
+        .classic { margin-left: 10%; list-style-type: none; line-height: 1.5em; font-size: 110%;
+                li { margin-bottom: .5em; padding-left: 1.5em; line-height: 1.2em;
+                        &:before { opacity: .65; margin-right: 1.2em; margin-left: -2.2em; font-family: $icons; content: '\e001'; }
+                }
+        }
+        .in-line li { display: inline-block; margin-right: 5%; list-style: none; }
+                // with images
+                .img-wide { text-align: center;
+                        li { overflow: hidden; width: 30%; min-width: 12em; height: 12em; margin-right: 2%; margin-bottom: 2em;
+                                img { height: 100%; }
+                                @include breakpoint(narrow) { width: 70%;
+                                        img {height: auto; width: 100%; }
+                                }
+                                @include breakpoint(compact) { width: 100%;
+                                        img {height: auto; width: 100%; }
+                                }
+                        }
+                }
+                .img-compact { text-align: center;
+                        li { width: 30%; margin-right: 2%;
+                                img { width: 100%; }
+                        }
+                }
+
+        //  Buttons
+        .button { display: inline-block; padding: 1.5em 3.5em; margin: 2em 1em .5em 1em; color: $lightest; background-color: $main1; border-radius: 2em;
+                &:hover, &:focus { background-color: lighten($main1,10%); }
+        }
+        .button-circle { display: block; position: relative; overflow: hidden; width: 4em; height: 4em; top: 0; line-height: 10em; color: $lightest; background-color: lighten($main1,5%); border-radius: 50%; box-shadow: .05em .1em 0 rgba(0,0,0,.1);
+                &:before { display: block; position: absolute; top: .85em; left: .85em; font-family: $icons; font-size: 150%; line-height: 1em; }
+                &:hover, &:focus { top: -.2em; box-shadow: .15em .3em 0 rgba(0,0,0,.1); }
+
+                // Specific buttons
+                &.email {
+                        &:before { content: '\e007'; }
+                }
+                &.skype { background-color: #00aff0;
+                        &:before { content: '\e00A'; }
+                }
+                &.linkedin { background-color: #0877B4;
+                        &:before { content: '\e00E'; }
+                }
+                &.facebook { background-color: #3b5998;
+                        &:before { content: '\e00C'; }
+                }
+                &.google { background-color: #db4a39;
+                        &:before { content: '\e00B'; }
+                }
+        }
+                // To top button
+                #to-top { position: fixed; z-index: 7000; bottom: 25%; right: 1.9em; font-size: 80%; transition: all .4s ease-out;
+                        a { display: block; position: relative; overflow: hidden; width: 4.5em; height: 4.5em; text-align: center; line-height: 4.3em; text-decoration: none; color: lighten($grey1,40%); background-color: $lightest; border-radius: 50%; box-shadow: .1em .15em 0 rgba(0,0,0,.1); transition: width .4s ease;
+                                &:before { position: relative; right: -.05em; content: '\e000'; font-family: $icons; font-size: 200%; }
+                                &:hover { text-decoration: none; color: $lightest; background-color: lighten($main1,5%); }
+                        }
+                        &.hidden { right: 3.4em;
+                                a { width: 0; color: rgba(255,255,255,0); }
+                        }
+                }
+
+        //  Backgrounds
+        img.back { position: absolute; top: 0; z-index: 0; object-fit: cover; object-position: 0 0; height: 170%; width: 100%; }
+
+
+//  C O N T E N T   S T Y L E S
+
+        .section { position: relative; overflow: hidden; width: 100%; min-height: 18em;
+
+                // TYPES
+                // Color back, white or light font
+                &.type-1 {
+                        .inner { color: $lightest;
+                                h2 { color: lighten($main1,15%); }
+                                h3 { color: $lightest; }
+                        }
+                }
+                // Main1 (blue) color thin lane
+                &.type-2 { min-height: 8.5em; background-color: $main1;
+                        .inner { color: $lightest;
+                                h2 { color: lighten($main1,15%); }
+                                h3 { color: $lightest; }
+                        }
+                }
+                // Main2 (red) color
+                &.type-3 { background-color: $main2;
+                        .inner {
+                                h2 { color: lighten($main2,25%); }
+                        }
+                }
+                // Main3 (orange) color
+                &.type-4 { //background-color: $main3;
+                        .inner {
+                                h2 { color: $main3; }
+                        }
+                }
+                // Main4 (green) color
+                &.type-5 { background-color: $main4;
+                        .inner {
+                                h2 { color: lighten($main4,35%); }
+                        }
+                }
+
+                        .inner { position: relative; z-index: 10; width: 55%; padding: 2em 1em; margin: 0 auto;
+                                @include breakpoint(narrow) { width: 90%; }
+                                @include breakpoint(compact) { width: 100%; padding: 2em; }
+                        }
+
+
+                // Content
+                &.section-1 { min-height: 50vh;
+                        .inner {
+                                h1 { margin-left: -.05em; margin-top: .15em; margin-bottom: -.05em;
+                                        @include breakpoint(compact) { width: 5em; margin-top: .8em; margin-bottom: -.4em; }
+                                }
+                                h2 {
+                                        @include breakpoint(narrow) { width: 5em; }
+                                        @include breakpoint(compact) { width: 5em; margin-top: 1.3em; }
+                                }
+                                h3 { margin: 3em 0; }
+                                img { float: right;
+                                        @include breakpoint(compact) { margin-right: -4.4em; }
+                                }
+                        }
+                }
+                //&.section-2 {  }
+                &.section-3 { background-color: $grey1; }
+                //&.section-4 {  }
+                //&.section-5 {  }
+                //&.section-6 {  }
+                //&.section-7 {  }
+                &.section-8 {
+                        .inner {
+                                h2 { text-align: left; }
+                        }
+                }
+                //&.section-9 {  }
+                //&.section-10 {  }
+                &.section-11 { background-color: $main1;
+                        .inner {
+                                ul { margin-top: 2.5em; text-align: center;
+                                        li { margin-bottom: 1em; }
+                                        @include breakpoint(compact) { width: 15em; margin: 2.5em auto; }
+                                }
+                                p { margin: 4em 0 2em; opacity: .5; }
+                        }
+                }
+
+        }
+
+
+//  A N I M A T I O N
+
+        .section {
+                .innerElement { position: relative; opacity: 0; transition: all .5s ease-in; }
+                &:not(.section-1):not(.section-2):not(.section-11) {
+                        .inner {
+                                & > h2, & > h3, & > p, & > div, & > ul li { @extend .innerElement;
+                                        &.show { opacity: 1; }
+                                }
+                                & > h2 { top: -.7em;
+                                        &.show { top: 0; }
+                                }
+                                & > p, & > h3 { left: -2em;
+                                        &.show { left: 0; }
+                                }
+                                & > ul li {
+                                        &:nth-child(1) { left: 1em; }
+                                        &:nth-child(2) { left: 3em; }
+                                        &:nth-child(3) { left: 5em; }
+                                        &:nth-child(4) { left: 7em; }
+                                        &.show { left: 0; }
+                                }
+                                & > div {
+                                        &:nth-child(even){ left: -3em; }
+                                        &:nth-child(odd) { right: -3em; }
+                                        &.show:nth-child(even) { left: 0; }
+                                        &.show:nth-child(odd) { right: 0; }
+                                }
+                        }
+                }
+        }
