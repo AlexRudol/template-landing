@@ -24,9 +24,8 @@
 //  C O L O R S
 
         $main1:         #5361A2;
-        $main2:         #D35038;
-        $main3:         #f59a30;
-        $main4:         #85b03f;
+        $main2:         #f59a30;
+        $main3:         #85b03f;
         $grey1:          #444;
         $lightest:       #fff;
 
@@ -87,7 +86,12 @@
                 // with images
                 .img-wide { text-align: center;
                         li { overflow: hidden; width: 30%; min-width: 12em; height: 12em; margin-right: 2%; margin-bottom: 2em;
-                                img { height: 100%; }
+                                &:hover {
+                                        h3 { top: -.1em; }
+                                        img { -webkit-filter: brightness(115%); filter: brightness(115%); }
+                                }
+                                h3 { position: relative; top: 0; transition: all .2s ease-out; }
+                                img { -webkit-filter: brightness(100%); filter: brightness(100%); height: 100%; transition: all .4s ease-out; }
                                 @include breakpoint(narrow) { width: 70%;
                                         img {height: auto; width: 100%; }
                                 }
@@ -126,6 +130,9 @@
                 &.google { background-color: #db4a39;
                         &:before { content: '\e00B'; }
                 }
+                &.github { background-color: #333;
+                        &:before { content: '\e013'; font-size: 190%; top: .55em; left: .55em; }
+                }
         }
                 // To top button
                 #to-top { position: fixed; z-index: 7000; bottom: 25%; right: 1.9em; font-size: 80%; transition: all .4s ease-out;
@@ -147,40 +154,22 @@
         .section { position: relative; overflow: hidden; width: 100%; min-height: 18em;
 
                 // TYPES
-                // Color back, white or light font
-                &.type-1 {
-                        .inner { color: $lightest;
-                                h2 { color: lighten($main1,15%); }
-                                h3 { color: $lightest; }
+                @mixin section($color-back, $color-heading, $color-text) {
+                        & { min-height: 8.5em; background-color: $color-back;
+                                .inner { color: $color-text;
+                                        h2 { color: lighten($color-heading,30%); }
+                                        h3 { color: $color-text; }
+                                }
                         }
                 }
-                // Main1 (blue) color thin lane
-                &.type-2 { min-height: 8.5em; background-color: $main1;
-                        .inner { color: $lightest;
-                                h2 { color: lighten($main1,15%); }
-                                h3 { color: $lightest; }
-                        }
-                }
-                // Main2 (red) color
-                &.type-3 { background-color: $main2;
-                        .inner {
-                                h2 { color: lighten($main2,25%); }
-                        }
-                }
-                // Main3 (orange) color
-                &.type-4 { //background-color: $main3;
-                        .inner {
-                                h2 { color: $main3; }
-                        }
-                }
-                // Main4 (green) color
-                &.type-5 { background-color: $main4;
-                        .inner {
-                                h2 { color: lighten($main4,35%); }
-                        }
-                }
+                &.white-blue { @include section($lightest, $main1, $grey1); }
+                &.blue-white { @include section($main1, $main1, $lightest); }
+                &.white-green { @include section($lightest, $main3, $grey1); }
+                &.green-white { @include section($main3, $main3, $lightest); }
+                &.white-grey { @include section($lightest, $grey1, $grey1); }
+                &.grey-white { @include section($grey1, $grey1, $lightest); }
 
-                        .inner { position: relative; z-index: 10; width: 55%; padding: 2em 1em; margin: 0 auto;
+                        .inner { position: relative; z-index: 10; width: 55%; padding: 4.5em 1em; margin: 0 auto;
                                 @include breakpoint(narrow) { width: 90%; }
                                 @include breakpoint(compact) { width: 100%; padding: 2em; }
                         }
@@ -197,13 +186,13 @@
                                         @include breakpoint(compact) { width: 5em; margin-top: 1.3em; }
                                 }
                                 h3 { margin: 3em 0; }
-                                img { float: right;
+                                img { float: right; margin-top: 5em;
                                         @include breakpoint(compact) { margin-right: -4.4em; }
                                 }
                         }
                 }
                 //&.section-2 {  }
-                &.section-3 { background-color: $grey1; }
+                //&.section-3 {  }
                 //&.section-4 {  }
                 //&.section-5 {  }
                 //&.section-6 {  }
@@ -215,13 +204,17 @@
                 }
                 //&.section-9 {  }
                 //&.section-10 {  }
-                &.section-11 { background-color: $main1;
+                &.section-11 {
                         .inner {
                                 ul { margin-top: 2.5em; text-align: center;
                                         li { margin-bottom: 1em; }
                                         @include breakpoint(compact) { width: 15em; margin: 2.5em auto; }
                                 }
-                                p { margin: 4em 0 2em; opacity: .5; }
+                                p { margin: 4em 0 2em; opacity: .5;
+                                        a { color: $lightest;
+                                                &:hover { color: $main2; }
+                                        }
+                                }
                         }
                 }
 
